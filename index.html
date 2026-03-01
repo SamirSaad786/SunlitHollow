@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Sunlit Hollow</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest:    #0b1c0d;
+    --canopy:    #122010;
+    --moss:      #2a5228;
+    --fern:      #4a8c48;
+    --leaf:      #78c878;
+    --leaf-dim:  rgba(120,200,120,0.55);
+    --gold:      #f0c040;
+    --gold-dim:  rgba(240,192,64,0.18);
+    --cream:     #faf0d8;
+    --cream-dim: rgba(250,240,216,0.65);
+    --border:    rgba(74,140,72,0.18);
+    --card-bg:   rgba(18,32,16,0.85);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--forest);
+    color: var(--cream);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* ── SUBTLE BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(42,82,40,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(30,60,28,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(18,40,16,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(8,14,8,0.95) 0%, rgba(11,28,13,0.80) 100%);
+    backdrop-filter: blur(8px);
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 36px 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: radial-gradient(circle at 38% 32%, #fffce0, #f0c040 48%, #c88010 85%);
+    box-shadow: 0 0 24px rgba(240,192,64,0.5), 0 0 48px rgba(240,192,64,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .header-text {}
+  .header-app {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, #f0c040, #fde68a, #c89820);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+  .header-label {
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--leaf-dim);
+    margin-top: 3px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  /* Page title block */
+  .page-title {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .page-title h1 span {
+    background: linear-gradient(135deg, #f0c040, #fde68a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .effective-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(240,192,64,0.22);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .page-intro {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    max-width: 620px;
+    line-height: 1.8;
+  }
+
+  /* ── QUICK SUMMARY CARDS ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 40px 0 56px;
+  }
+
+  .summary-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.2s;
+  }
+  .summary-card:hover { border-color: rgba(120,200,80,0.3); }
+
+  .summary-card .icon { font-size: 1.5rem; }
+  .summary-card .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fern);
+    margin-top: 2px;
+  }
+  .summary-card .value {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--cream-dim);
+    line-height: 1.5;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 44px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .section-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .section h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+  }
+
+  .section p {
+    font-size: 0.93rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    line-height: 1.85;
+    margin-bottom: 12px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .section p strong {
+    color: var(--cream);
+    font-weight: 700;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: rgba(42,82,40,0.25);
+    border: 1px solid rgba(74,140,72,0.3);
+    border-left: 3px solid var(--fern);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: rgba(200,235,180,0.8);
+    line-height: 1.7;
+  }
+
+  .gold-box {
+    background: rgba(240,192,64,0.06);
+    border: 1px solid rgba(240,192,64,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    color: rgba(250,230,160,0.8);
+    line-height: 1.7;
+  }
+
+  /* ── LIST ── */
+  .policy-list {
+    list-style: none;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .policy-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.91rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    line-height: 1.6;
+  }
+
+  .policy-list li::before {
+    content: '🌿';
+    font-size: 0.75rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0;
+    opacity: 0.25;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--fern); }
+  .divider-dot  { font-size: 0.6rem; }
+
+  /* ── CONTACT BLOCK ── */
+  .contact-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 28px 24px;
+    margin-top: 48px;
+  }
+
+  .contact-block h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .contact-block p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(240,192,64,0.08);
+    border: 1px solid rgba(240,192,64,0.22);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-email:hover { background: rgba(240,192,64,0.14); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: rgba(120,180,100,0.45);
+  }
+
+  .footer-note {
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: rgba(120,180,100,0.3);
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 24px 16px 20px; }
+    main { padding: 36px 16px 72px; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-icon">☀️</div>
+    <div class="header-text">
+      <div class="header-app">Sunlit Hollow</div>
+      <div class="header-label">Idle Forest Clicker</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- PAGE TITLE -->
+  <div class="page-title fade-in">
+    <div class="effective-date">📅 Effective Date: January 1, 2026</div>
+    <h1>Privacy <span>Policy</span></h1>
+    <p class="page-intro">Your privacy matters. This policy explains clearly and plainly what information Sunlit Hollow collects, how it is used, and what rights you have. We believe in keeping things simple.</p>
+  </div>
+
+  <!-- QUICK SUMMARY -->
+  <div class="summary-grid fade-in">
+    <div class="summary-card">
+      <div class="icon">🚫</div>
+      <div class="label">No Account</div>
+      <div class="value">No registration or sign-in required to play.</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">📍</div>
+      <div class="label">No Location</div>
+      <div class="value">We never access or collect your location data.</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">👤</div>
+      <div class="label">No Personal Data</div>
+      <div class="value">We do not collect your name, email, or contacts.</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">📢</div>
+      <div class="label">Ads Shown</div>
+      <div class="value">Google AdMob serves ads. One-time purchase removes them.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Information We Collect</h2>
+    </div>
+    <p><strong>Sunlit Hollow does not collect any personally identifiable information.</strong> You do not need to create an account, log in, or provide any personal details to play the game.</p>
+    <p>Your game progress — including sunlight totals, upgrades purchased, and prestige level — is saved locally on your device using your phone's storage. This data never leaves your device and is not accessible to us.</p>
+    <div class="highlight-box">
+      🌿 All save data is stored exclusively on your device. Uninstalling the app will remove all local save data.
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 2 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Advertising (Google AdMob)</h2>
+    </div>
+    <p>Sunlit Hollow displays banner advertisements through <strong>Google AdMob</strong>, a third-party advertising service provided by Google LLC. AdMob may collect and use certain non-personal data to serve relevant ads, including:</p>
+    <ul class="policy-list">
+      <li>Device type, operating system version, and language settings</li>
+      <li>Advertising ID (a resettable, anonymous device identifier)</li>
+      <li>General app usage information for ad performance measurement</li>
+      <li>IP address (used to determine approximate region for ad targeting)</li>
+    </ul>
+    <p>This data is collected and processed by Google in accordance with <a href="https://policies.google.com/privacy" target="_blank" style="color: var(--leaf); text-decoration: none;">Google's Privacy Policy</a>. We do not have access to this data and do not control how Google uses it.</p>
+    <div class="gold-box">
+      ✨ You can permanently remove all ads with a one-time in-app purchase. Once removed, no ad data will be collected for your session.
+    </div>
+    <p>To opt out of personalized advertising, you can reset your device's Advertising ID or enable "Opt out of Ads Personalization" in your Android device settings under <strong>Settings → Privacy → Ads</strong>.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 3 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>In-App Purchases</h2>
+    </div>
+    <p>Sunlit Hollow offers a single in-app purchase: <strong>"Remove Ads" ($0.99)</strong>. All purchase transactions are processed entirely by <strong>Google Play</strong>. We do not collect, store, or have access to your payment information, billing address, or any financial data.</p>
+    <p>Purchase records are managed by Google Play and governed by <a href="https://play.google.com/about/play-terms/" target="_blank" style="color: var(--leaf); text-decoration: none;">Google Play's Terms of Service</a>.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 4 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Children's Privacy</h2>
+    </div>
+    <p>Sunlit Hollow is a general-audience game suitable for all ages. <strong>We do not knowingly collect any personal information from children under the age of 13.</strong> The game does not require any personal information to play and contains no features that solicit personal data from any user, regardless of age.</p>
+    <p>If you are a parent or guardian and believe your child has provided personal information through this app, please contact us immediately using the information below and we will take steps to remove it.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 5 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Data Sharing & Third Parties</h2>
+    </div>
+    <p>We do not sell, trade, rent, or share your personal information with any third parties. The only third-party service integrated into Sunlit Hollow is Google AdMob for advertising purposes, as described in Section 2.</p>
+    <p>We do not use analytics SDKs, crash reporting services, social login integrations, or any other third-party data collection tools.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 6 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Data Security</h2>
+    </div>
+    <p>Because Sunlit Hollow does not collect or transmit personal data, there is no user data stored on our servers to protect. All game data lives locally on your device and is protected by your device's own security measures.</p>
+    <p>We encourage users to keep their devices updated and secured with a PIN, password, or biometric lock.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 7 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>Your Rights</h2>
+    </div>
+    <p>Since we do not collect personal information, there is no data for us to provide, correct, or delete on your behalf. Your game save data is entirely within your control — you can delete it at any time by clearing the app's data in your device settings or by uninstalling the app.</p>
+    <p>Depending on your location, you may have additional rights under applicable privacy laws such as GDPR (European Union) or CCPA (California). Since we collect no personal data, these rights are already satisfied by default. If you have questions, please contact us below.</p>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot">✦</div><div class="divider-line"></div></div>
+
+  <!-- SECTION 8 -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2>Changes to This Policy</h2>
+    </div>
+    <p>We may update this Privacy Policy from time to time. When we do, the effective date at the top of this page will be revised. We encourage you to review this policy periodically. Continued use of the app after any changes constitutes your acceptance of the updated policy.</p>
+    <p>Significant changes will be communicated through a notice within the app where reasonably possible.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-block fade-in">
+    <h3>Questions or Concerns?</h3>
+    <p>If you have any questions about this Privacy Policy or how Sunlit Hollow handles data, please don't hesitate to reach out. We're happy to help.</p>
+    <a href="mailto:your-email@gmail.com" class="contact-email">✉️ your-email@gmail.com</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">☀️ Sunlit Hollow · Idle Forest Clicker</div>
+    <div class="footer-note">© 2026 Samir Saad · All rights reserved</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
