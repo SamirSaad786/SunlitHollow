@@ -323,9 +323,9 @@ body {
    SCENE / TAP AREA
 ═══════════════════════════════ */
 .scene-area {
-  flex: 0 0 auto;
+  flex: 1;
   position: relative;
-  height: 200px;
+  min-height: 200px;
   overflow: hidden;
   cursor: pointer;
   z-index: 2;
@@ -339,11 +339,11 @@ body {
 }
 .tap-target {
   position: absolute;
-  top: 20px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -354,21 +354,21 @@ body {
   z-index: 10;
   transition: transform 0.08s;
 }
-.tap-target:active { transform: translateX(-50%) scale(0.9); }
+.tap-target:active { transform: translate(-50%, -50%) scale(0.9); }
 .tap-target .sun-inner {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: radial-gradient(circle, #ffe480 0%, #f0b030 60%, #e08010 100%);
   box-shadow:
-    0 0 20px rgba(255,200,60,0.8),
-    0 0 50px rgba(255,160,20,0.4),
-    0 0 90px rgba(255,120,0,0.2);
+    0 0 25px rgba(255,200,60,0.8),
+    0 0 60px rgba(255,160,20,0.4),
+    0 0 100px rgba(255,120,0,0.2);
   animation: sun-pulse 3s ease-in-out infinite;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 @keyframes sun-pulse {
   0%,100% { box-shadow: 0 0 20px rgba(255,200,60,0.8), 0 0 50px rgba(255,160,20,0.4), 0 0 90px rgba(255,120,0,0.2); }
@@ -392,6 +392,13 @@ body {
   100% { opacity: 0; transform: translateY(-70px) scale(0.7); }
 }
 
+/* Scene items container */
+#scene-items {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 /* Scene items (purchased — one per type with ×N counter) */
 .scene-item {
   position: absolute;
@@ -405,7 +412,7 @@ body {
   transform: translateX(-50%);
 }
 .scene-emoji {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1;
 }
 .scene-count {
@@ -427,50 +434,85 @@ body {
 }
 
 /* ═══════════════════════════════
-   TABS
+   TABS — Bottom Bar (Collapsed by default)
 ═══════════════════════════════ */
 .tabs {
   display: flex;
-  padding: 0 12px;
+  padding: 0 8px;
   gap: 4px;
   flex-shrink: 0;
-  margin-bottom: 2px;
-  background: transparent;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(8,16,8,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 10;
 }
 .tab {
   flex: 1;
   text-align: center;
-  padding: 7px 4px;
-  font-size: 0.68rem;
+  padding: 10px 4px 12px;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(250,244,224,0.42);
-  border-bottom: 2px solid transparent;
+  color: rgba(250,244,224,0.45);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s, background 0.2s;
   user-select: none;
+  border-radius: 8px 8px 0 0;
 }
-.tab.active { color: var(--gold2); border-bottom-color: var(--gold2); }
+.tab.active { 
+  color: var(--gold2); 
+  background: rgba(40,80,40,0.4);
+}
+.tab:active {
+  background: rgba(60,120,60,0.3);
+}
 
 /* ═══════════════════════════════
-   PANEL (shared scroll area)
+   PANEL — Expandable Drawer
 ═══════════════════════════════ */
+.panel-drawer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+  background: rgba(8,16,8,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(100,180,80,0.2);
+  border-radius: 16px 16px 0 0;
+}
+.panel-drawer.open {
+  max-height: 55vh;
+}
 .panel {
   display: none;
-  flex: 1;
+  max-height: 52vh;
   overflow-y: auto;
-  padding: 8px 12px 20px;
+  padding: 12px 12px 20px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(80,160,80,0.3) transparent;
   position: relative;
-  z-index: 2;
   pointer-events: auto;
   background: transparent;
 }
 .panel.active { display: block; }
+
+/* Drawer handle hint */
+.drawer-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin: 8px auto 4px;
+}
 
 /* ═══════════════════════════════
    GROW TAB — SHOP
@@ -1232,8 +1274,8 @@ body {
     🌙 Your Hollow is ready to be reborn → Earn a Moonbeam!
   </div>
 
-  <!-- SCENE / TAP AREA -->
-  <div class="scene-area" id="scene-area">
+  <!-- SCENE / TAP AREA — Now fills screen -->
+  <div class="scene-area" id="scene-area" onclick="collapseDrawerOnSceneTap(event)">
     <!-- scene transparent - bg image shows through -->
 
     <!-- Purchased scene items rendered here -->
@@ -1245,59 +1287,64 @@ body {
     </div>
   </div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <div class="tab active" id="tab-grow"     onclick="switchTab('grow')">🌱 Grow</div>
-    <div class="tab"        id="tab-discover" onclick="switchTab('discover')">✨ Discover</div>
-    <div class="tab"        id="tab-rebirth"  onclick="switchTab('rebirth')">🌙 Rebirth</div>
-    <div class="tab"        id="tab-lore"     onclick="switchTab('lore')">📜 Lore</div>
-  </div>
+  <!-- PANEL DRAWER (slides up from bottom) -->
+  <div class="panel-drawer" id="panel-drawer">
+    <div class="drawer-handle"></div>
+    
+    <!-- GROW PANEL -->
+    <div class="panel active" id="panel-grow">
+      <div class="shop-grid" id="shop-grid"></div>
+    </div>
 
-  <!-- GROW PANEL -->
-  <div class="panel active" id="panel-grow">
-    <div class="shop-grid" id="shop-grid"></div>
-  </div>
+    <!-- DISCOVER PANEL -->
+    <div class="panel" id="panel-discover">
+      <div class="discover-list" id="discover-list"></div>
+    </div>
 
-  <!-- DISCOVER PANEL -->
-  <div class="panel" id="panel-discover">
-    <div class="discover-list" id="discover-list"></div>
-  </div>
-
-  <!-- REBIRTH PANEL -->
-  <div class="panel" id="panel-rebirth">
-    <div class="rebirth-panel">
-      <div class="rebirth-icon">🌙</div>
-      <div class="rebirth-title">The Cycle of Renewal</div>
-      <div class="rebirth-desc">When a forest reaches its fullest bloom, it releases everything back to the earth — and what grows next is richer, deeper, more alive. Each rebirth earns a Moonbeam: a permanent blessing that amplifies all future sunlight.</div>
-      <div class="rebirth-stats">
-        <div class="rebirth-stat">
-          <div class="rebirth-stat-val" id="rb-moonbeams">0</div>
-          <div class="rebirth-stat-lbl">Moonbeams</div>
+    <!-- REBIRTH PANEL -->
+    <div class="panel" id="panel-rebirth">
+      <div class="rebirth-panel">
+        <div class="rebirth-icon">🌙</div>
+        <div class="rebirth-title">The Cycle of Renewal</div>
+        <div class="rebirth-desc">When a forest reaches its fullest bloom, it releases everything back to the earth — and what grows next is richer, deeper, more alive. Each rebirth earns a Moonbeam: a permanent blessing that amplifies all future sunlight.</div>
+        <div class="rebirth-stats">
+          <div class="rebirth-stat">
+            <div class="rebirth-stat-val" id="rb-moonbeams">0</div>
+            <div class="rebirth-stat-lbl">Moonbeams</div>
+          </div>
+          <div class="rebirth-stat">
+            <div class="rebirth-stat-val" id="rb-bonus">×1.0</div>
+            <div class="rebirth-stat-lbl">Perm. Bonus</div>
+          </div>
+          <div class="rebirth-stat">
+            <div class="rebirth-stat-val" id="rb-rebirths">0</div>
+            <div class="rebirth-stat-lbl">Rebirths</div>
+          </div>
+          <div class="rebirth-stat">
+            <div class="rebirth-stat-val" id="rb-next">+20%</div>
+            <div class="rebirth-stat-lbl">Next Reward</div>
+          </div>
         </div>
-        <div class="rebirth-stat">
-          <div class="rebirth-stat-val" id="rb-bonus">×1.0</div>
-          <div class="rebirth-stat-lbl">Perm. Bonus</div>
+        <div class="rebirth-progress">
+          <div class="rebirth-progress-bar" id="rb-bar" style="width:0%"></div>
         </div>
-        <div class="rebirth-stat">
-          <div class="rebirth-stat-val" id="rb-rebirths">0</div>
-          <div class="rebirth-stat-lbl">Rebirths</div>
-        </div>
-        <div class="rebirth-stat">
-          <div class="rebirth-stat-val" id="rb-next">+20%</div>
-          <div class="rebirth-stat-lbl">Next Reward</div>
-        </div>
+        <div class="rebirth-progress-text" id="rb-progress-text">Gather 500,000 total sunlight to unlock rebirth</div>
+        <button class="rebirth-btn" id="rb-btn" onclick="openPrestige()" disabled>🌙 Rebirth the Hollow</button>
       </div>
-      <div class="rebirth-progress">
-        <div class="rebirth-progress-bar" id="rb-bar" style="width:0%"></div>
-      </div>
-      <div class="rebirth-progress-text" id="rb-progress-text">Gather 500,000 total sunlight to unlock rebirth</div>
-      <button class="rebirth-btn" id="rb-btn" onclick="openPrestige()" disabled>🌙 Rebirth the Hollow</button>
+    </div>
+
+    <!-- LORE PANEL -->
+    <div class="panel" id="panel-lore">
+      <div id="lore-content"></div>
     </div>
   </div>
 
-  <!-- LORE PANEL -->
-  <div class="panel" id="panel-lore">
-    <div id="lore-content"></div>
+  <!-- TABS — Bottom bar -->
+  <div class="tabs">
+    <div class="tab active" id="tab-grow"     onclick="toggleTab('grow')">🌱 Grow</div>
+    <div class="tab"        id="tab-discover" onclick="toggleTab('discover')">✨ Discover</div>
+    <div class="tab"        id="tab-rebirth"  onclick="toggleTab('rebirth')">🌙 Rebirth</div>
+    <div class="tab"        id="tab-lore"     onclick="toggleTab('lore')">📜 Lore</div>
   </div>
 
 </div><!-- /app -->
@@ -2183,12 +2230,14 @@ function rebuildSceneItems() {
   ITEMS.forEach((item, idx) => {
     const owned = G.owned[item.id] || 0;
     if (owned === 0) return;
-    // Always just the first position — one icon, one badge
+    // Position items in the lower portion of the scene (60-90% from top)
     const [x, y] = item.scenePositions[0];
     const wrapper = document.createElement('div');
     wrapper.className = 'scene-item';
     wrapper.style.left = (x / 400 * 100) + '%';
-    wrapper.style.top  = (y / 200 * 100) + '%';
+    // Remap y from 0-200 range to 55-90% of scene height
+    const remappedY = 55 + (y / 200) * 35;
+    wrapper.style.top  = remappedY + '%';
     wrapper.style.animationDelay = (idx * 0.3) + 's';
     wrapper.innerHTML = `
       <span class="scene-emoji">${item.sceneEmoji}</span>
@@ -2379,16 +2428,52 @@ function updateHUD() {
 // ═══════════════════════════════════════════
 //   TABS
 // ═══════════════════════════════════════════
-function switchTab(id) {
+// Track which tab is currently active and if drawer is open
+let currentTab = 'grow';
+let drawerOpen = false;
+
+function toggleTab(id) {
+  const drawer = document.getElementById('panel-drawer');
+  
+  // If clicking the same tab that's already active AND drawer is open, close it
+  if (id === currentTab && drawerOpen) {
+    drawer.classList.remove('open');
+    drawerOpen = false;
+    return;
+  }
+  
+  // Otherwise, switch to the new tab and open drawer
+  currentTab = id;
   ['grow','discover','rebirth','lore'].forEach(t => {
     document.getElementById('tab-'   + t).classList.toggle('active', t === id);
     document.getElementById('panel-' + t).classList.toggle('active', t === id);
   });
+  
+  drawer.classList.add('open');
+  drawerOpen = true;
+  
   if (id === 'lore')     renderLore();
   if (id === 'discover') {
     renderDiscover();
     // Mark all currently unlocked milestones as seen so NEW badge clears
     MILESTONES.forEach(m => { if (G.milestonesDone.includes(m.id)) m._seen = true; });
+  }
+}
+
+// Legacy function for moonpill click
+function switchTab(id) {
+  toggleTab(id);
+}
+
+// Collapse drawer when tapping the scene area (but not on the sun)
+function collapseDrawerOnSceneTap(e) {
+  // Don't collapse if they tapped the sun or scene items
+  if (e.target.closest('.tap-target') || e.target.closest('.scene-item')) return;
+  
+  const drawer = document.getElementById('panel-drawer');
+  if (drawerOpen) {
+    drawer.classList.remove('open');
+    drawerOpen = false;
   }
 }
 
